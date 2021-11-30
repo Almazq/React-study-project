@@ -1,0 +1,83 @@
+.dialogs__list{
+	width: 50%;
+	display: inline-block;
+	background-color: pink;
+}
+.dialogs__chats{
+	width: 50%;
+	display: inline-block;
+	background-color: purple;
+	position: absolute;
+	height: 100%;
+	overflow: scroll  ;
+}
+.dialogs__list__name{
+	list-style-type: none;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	margin-top: 3%;
+	padding-left: 5%;
+	color: cadetblue;
+}
+.dialogs__ava{
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+
+}
+.dialogs__ava__img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+.dialogs__list__name a{
+	text-decoration: none;
+	color: #fff;
+	display: inline-block;
+    position: absolute;
+    line-height: 50px;
+    margin-left: 1%;
+}
+.dialogs__list__name a:hover{
+	color: #F5F5DC;
+	border-bottom: 1px solid #ffefd5;
+}
+.dialogs__chats__massege__me{
+	font-size: 18px;
+	color: #fff;
+	display: block;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	text-align: right;
+	margin-right: 2%;
+}
+.dialogs__chats__massege__you{
+	color: #fff;
+	font-size: 17px;
+	text-align: left;
+
+}
+.dialogs__chats__input{
+	width: 80%;
+	text-align: center;
+	margin-left: 10%;
+	margin-top: 5%;
+	bottom: 0;
+	position: sticky;
+}
+.dialogs__chats__input input{
+	width: 90%;
+	height: 25px;
+	border: none;
+	color: purple;
+	box-shadow: 0px 1px 9px purple;
+}
+.dialogs__chats__input button{
+	width: 10%;
+	height: 25px;
+	border: none;
+	background-color: #940394;
+	color: #fff;
+	box-shadow: 1px 1px 4px purple;
+	cursor: pointer;
+}
