@@ -1,14 +1,18 @@
 const profileReducer = (state , action) =>{
-	if(action.type === "ADD-POST"){
+	switch(action.type){
+    case "ADD-POST":
       let newtext ={
         id:state.posts.length + 1,
         posts:state.postValue
       };
       state.posts.push(newtext);
       state.postValue = "";
-    }else if(action.type === "UPDATE-NEW-POST"){
+      return state;
+     case "UPDATE-NEW-POST":
       state.postValue = action.newText;
-    }
-	return state;
+      return state;
+    default:
+    	return state;
+  }
 }
-export default profileReducer;
+export default profileReducer
