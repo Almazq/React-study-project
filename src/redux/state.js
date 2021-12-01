@@ -1,3 +1,5 @@
+import profileReducer from "./profile-reducer";
+import dialogReducer from "./dialog-reducer";
 let store  = {
   _state:{
     Dialogjsx:{
@@ -39,29 +41,9 @@ let store  = {
     this._render = observer;
   },
   dispatch(action){
-    if(action.type === "ADD-POST"){
-      let newtext ={
-        id:this._state.Profilejsx.posts.length + 1,
-        posts:this._state.Profilejsx.postValue
-      };
-      this._state.Profilejsx.posts.push(newtext);
-      this._state.Profilejsx.postValue = "";
-      this._render(this._state);
-    }else if(action.type === "UPDATE-NEW-POST"){
-      this._state.Profilejsx.postValue = action.newText;
-      this._render(this._state);
-    }else if(action.type === "ADD-MASSEGE"){
-      let newtext ={
-        id:this._state.Dialogjsx.massege.length + 1,
-        massegeMe:this._state.Dialogjsx.massegeValue
-      };
-      this._state.Dialogjsx.massege.push(newtext);
-      this._state.Dialogjsx.massegeValue = "";
-      this._render(this._state);
-    }else if(action.type === "UPDATE-NEW-MASSEGE"){
-      this._state.Dialogjsx.massegeValue = action.newText;
-      this._render(this._state);
-    }
+    this._state.Profilejsx = profileReducer(this._state.Profilejsx , action);
+    this._state.Dialogjsx = dialogReducer(this._state.Dialogjsx , action);
+    this._render(this.state);
   }
 
 }
