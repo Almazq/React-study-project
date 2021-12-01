@@ -1,5 +1,5 @@
  import React from 'react';
- import {profileActionCreat} from ".././redux/state";
+ import {profileActionCreat} from ".././redux/profile-reducer";
 
 let Content = (props) => { 
 

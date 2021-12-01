@@ -1,10 +1,11 @@
 import React from 'react';
 import './css/Dialogs.css';
 import {NavLink} from 'react-router-dom';
-import {dialogActionCreat} from ".././redux/state";
+import {dialogActionCreat} from ".././redux/dialog-reducer";
 
 
 function Dialogs(props){
+	
 	let NameMap =
 		props.listname.map(name => <div className="dialogs__list__name"><div className="dialogs__ava"><img src={name.src}className="dialogs__ava__img" /></div><NavLink to={"/Dialogs/" + name.id}>{name.name}</NavLink></div>)
 	let Dialogsmap =

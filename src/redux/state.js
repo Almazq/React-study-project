@@ -47,31 +47,6 @@ let store  = {
   }
 
 }
-export const profileActionCreat = {
-  addPostActionCreat(){
-    return {
-    type:"ADD-POST"
-  }
-  },
-  upDateNewPostActionCreat(text){
-    return {
-    type:"UPDATE-NEW-POST",
-    newText: text
-  }
-  }
-}
-export const dialogActionCreat = {
-  addMassegeActionCreat(){
-    return {
-    type:"ADD-MASSEGE"
-  }
-  },
-  upDateNewMassegeActionCreat(text){
-    return {
-    type:"UPDATE-NEW-MASSEGE",
-    newText: text
-  }
-  }
-}
+
 
 export default store;
