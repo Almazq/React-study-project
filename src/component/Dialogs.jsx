@@ -1,22 +1,19 @@
 import React from 'react';
 import './css/Dialogs.css';
 import {NavLink} from 'react-router-dom';
-import {dialogActionCreat} from ".././redux/dialog-reducer";
-
 
 function Dialogs(props){
-	
 	let NameMap =
 		props.listname.map(name => <div className="dialogs__list__name"><div className="dialogs__ava"><img src={name.src}className="dialogs__ava__img" /></div><NavLink to={"/Dialogs/" + name.id}>{name.name}</NavLink></div>)
 	let Dialogsmap =
 		props.massege.map( masseg => <div className="dialogs__chats__massege__me">{masseg.massegeMe}</div>);
 
 	let massegChange = (e)=>{
-		let text = e.target.value
-		props.dispatch(dialogActionCreat.upDateNewMassegeActionCreat(text));
+		let text = e.target.value;
+		props.upDateNewMassegeActionCreat(text)
 	}
 	let massegAdd = ()=>{
-		props.dispatch(dialogActionCreat.addMassegeActionCreat());
+		props.addMassegeActionCreat();
 	}
 	return(
 		<div>

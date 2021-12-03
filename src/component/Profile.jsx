@@ -1,17 +1,16 @@
  import React from 'react';
- import {profileActionCreat} from ".././redux/profile-reducer";
 
-let Content = (props) => { 
+let Profile = (props) => { 
 
   let postalert = ()=>{
-    props.dispatch(profileActionCreat.addPostActionCreat());
+    props.addPostActionCreat();
   }
   let postMap = 
     props.posts.map(post => <div className="post">{post.posts}</div>);
 
   let onChangePost = (e)=>{
     let text = e.target.value;
-    props.dispatch(profileActionCreat.upDateNewPostActionCreat(text));
+    props.upDateNewPostActionCreat(text);
   }
   return(
       <div className='content-conteiner'>
@@ -37,4 +36,4 @@ let Content = (props) => {
       </div>
   );
 }
-export default Content;
+export default Profile;
