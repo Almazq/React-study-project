@@ -19,22 +19,24 @@ let initalState ={
 
 
 const dialogReducer = (state = initalState, action) =>{
+
 	switch(action.type){
-      case "ADD-MASSEGE":{
+      case "ADD-MASSEGE":
       let newtext ={
         id:state.massege.length + 1,
         massegeMe:state.massegeValue
       };
-      let stateCopy = {...state};
-      stateCopy.massege = [...state.massege];
-      stateCopy.massege.push(newtext);
-      stateCopy.massegeValue = "";
-      return stateCopy;
+      return{
+        ...state,
+        massegeValue: "",
+        massege:[...state.massege , newtext]
+    
     }
       case "UPDATE-NEW-MASSEGE":
-      let stateCopy = {...state}
-      stateCopy.massegeValue = action.newText;
-      return stateCopy;
+      return{
+        ...state,
+        massegeValue:action.newText
+      }
       default:
         return state;
 
