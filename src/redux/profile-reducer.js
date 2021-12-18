@@ -1,4 +1,3 @@
-
 let initalState ={
       posts:[
         {id:1,posts:"Hi"},

@@ -6,7 +6,7 @@ let Profile = (props) => {
     props.addPostActionCreat();
   }
   let postMap = 
-    props.posts.map(post => <div className="post">{post.posts}</div>);
+    props.posts.map(post => <div className="post" key = {post.id}>{post.posts}</div>);
 
   let onChangePost = (e)=>{
     let text = e.target.value;

@@ -6,6 +6,7 @@ function SideBar(){
 	        <ul>
 		        <li><NavLink to="Profile">Profile</NavLink></li>
 		        <li><NavLink to="Dialogs">Massega</NavLink></li>
+		        <li><NavLink to="Users">Users</NavLink></li>
 		        <li><a href="#">News</a></li>
 		        <li><a href="#">Music</a></li>
 	        </ul>
