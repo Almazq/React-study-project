@@ -11,7 +11,6 @@ let mapStateToProps = (state) =>{
 let mapDispatchToProps = (dispatch) =>{
   return{
     FollowAC: (usersId)=>{
-    	
       dispatch(usersAC.FollowAC(usersId));
     },
     UnFollowAC: (usersId)=>{
