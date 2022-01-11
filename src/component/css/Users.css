@@ -37,3 +37,9 @@
 	margin-left: 5%;
 	border-radius: 4px;
 }
+.users__add-page{
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	text-decoration: underline;
+}

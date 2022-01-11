@@ -1,7 +1,8 @@
 let initalState ={
-  users:[]
+  users:[],
+  page:1,
+  count:10,
 }
-
 const usersReducer = (state = initalState , action) =>{
 	switch(action.type){
     case "Follow":
@@ -26,8 +27,12 @@ const usersReducer = (state = initalState , action) =>{
           })
         }
       case "SetUsers":
-       return { ...state, users: [...action.users] }
+       return { ...state, users: [...action.users]}
 
+      case "nextGetUsers":
+        {return {...state, page : action.page + 1}} 
+      case "addGetUsers":
+        {return {...state, count : action.count + 5}} 
     default:
     	return state;
   }
@@ -41,6 +46,12 @@ export const usersAC ={
   },
   SetUsersAC(users){
     return{type:"SetUsers",users}
+  },
+  nextGetUsersAC(page){
+    return{type:"nextGetUsers",page}
+  },
+  addGetUsersAC(count){
+    return{type:"addGetUsers",count}
   }
 }
 

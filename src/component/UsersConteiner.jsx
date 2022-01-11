@@ -5,7 +5,9 @@ import {connect} from "react-redux";
 
 let mapStateToProps = (state) =>{
   return{
-    users: state.Usersjsx.users
+    users: state.Usersjsx.users,
+    page: state.Usersjsx.page,
+    count: state.Usersjsx.count
   }
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -18,10 +20,14 @@ let mapDispatchToProps = (dispatch) =>{
     },
     SetUsers: (users)=>{
     	dispatch(usersAC.SetUsersAC(users))
+    },
+    nextGetUsersAC: (page)=>{
+      dispatch(usersAC.nextGetUsersAC(page))
+    },
+    addGetUsersAC: (count)=>{
+      dispatch(usersAC.addGetUsersAC(count))
     }
   }
-  debugger;
-
 }
 
 const UsersConteiner = connect(mapStateToProps,mapDispatchToProps)(Users);
