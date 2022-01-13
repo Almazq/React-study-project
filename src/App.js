@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import ProfileConteiner from './component/ProfileConteiner.jsx';
+import ProfileConteiner from './component/ProfileConteiner.js';
 import Header from './component/Header.jsx';
 import Sidebar from './component/Sidebar.jsx';
-import DialogsConteiner from './component/DialogsConteiner.jsx';
-import UsersConteiner from './component/UsersConteiner.jsx';
+import DialogsConteiner from './component/DialogsConteiner.js';
+import UsersConteiner from './component/UsersConteiner.js';
 import {Route , Routes} from 'react-router-dom'
 
 function App(props) {
