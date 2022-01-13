@@ -5,6 +5,7 @@ import Header from './component/Header.jsx';
 import Sidebar from './component/Sidebar.jsx';
 import DialogsConteiner from './component/DialogsConteiner.js';
 import UsersConteiner from './component/UsersConteiner.js';
+import loader from './common/loadingGif.jsx';
 import {Route , Routes} from 'react-router-dom'
 
 function App(props) {
@@ -17,6 +18,7 @@ function App(props) {
         <Route path="/Profile" element={<ProfileConteiner />}/>
         <Route path="/Dialogs" element={<DialogsConteiner />}/>
         <Route path="/Users" element={<UsersConteiner />}/>
+        <Route path="/loader" element={<loader />}/>
       </Routes>
       </div>
     </div>

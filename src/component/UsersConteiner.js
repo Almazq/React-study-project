@@ -3,6 +3,7 @@ import {usersAC} from ".././redux/users-reducer";
 import {connect} from "react-redux";
 import * as axios from "axios";
 import Users from "./Users.jsx"
+import load from "../img/loader.gif"
 
 class UsersApiComponent extends React.Component{
   componentDidMount(){
@@ -21,24 +22,24 @@ class UsersApiComponent extends React.Component{
       this.props.textAddGetUsersAC();
       this.nextGetUsers()
     }else{
+      this.props.isLoading(true);
       this.props.addGetUsersAC(this.props.count);
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.page}&count=${this.props.count}`).then(response =>{
+        this.props.isLoading(false)
         this.props.SetUsers([...response.data.items]);
       })
     }
   }
   render(){
-    return (
-    <div>
+    return <>
       <Users users ={this.props.users}
       UnFollowAC ={this.props.UnFollowAC}
       FollowAC ={this.props.FollowAC}
-      textAddGetUsers ={this.props.textAddGetUsers}
+      textAddGetUsers ={this.props.load ? <img src={load} className="loading-gif"/> : this.props.textAddGetUsers}
       addGetUsers ={this.addGetUsers}
       users ={this.props.users}
       />
-    </div>
-    )
+    </>
   }
 }
 let mapStateToProps = (state) =>{
@@ -46,7 +47,8 @@ let mapStateToProps = (state) =>{
     users: state.Usersjsx.users,
     page: state.Usersjsx.page,
     count: state.Usersjsx.count,
-    textAddGetUsers: state.Usersjsx.textAddGetUsers
+    textAddGetUsers: state.Usersjsx.textAddGetUsers,
+    load: state.Usersjsx.isLoading
   }
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -68,6 +70,9 @@ let mapDispatchToProps = (dispatch) =>{
     },
     textAddGetUsersAC: ()=>{
       dispatch(usersAC.textAddGetUsersAC())
+    },
+    isLoading: (isLoading)=>{
+      dispatch(usersAC.isLoading(isLoading))
     }
   }
 }

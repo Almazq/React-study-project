@@ -2,7 +2,8 @@ let initalState ={
   users:[],
   page:1,
   count:10,
-  textAddGetUsers: "Загрузить еще"
+  textAddGetUsers: "Загрузить еще",
+  isLoading:false
 }
 const usersReducer = (state = initalState , action) =>{
 	switch(action.type){
@@ -35,7 +36,9 @@ const usersReducer = (state = initalState , action) =>{
       case "addGetUsers":
         {return {...state, count : action.count + 5}}
       case "textAddGetUsers":
-        {return {...state, textAddGetUsers : "Следующая страница"}} 
+        {return {...state, textAddGetUsers : "Следующая страница"}}
+      case "isLoading":
+        {return {...state, isLoading : action.isLoading}} 
     default:
     	return state;
   }
@@ -58,6 +61,9 @@ export const usersAC ={
   },
   textAddGetUsersAC(){
     return{type:"textAddGetUsers"}
+  },
+  isLoading(isLoading){
+    return{type:"isLoading", isLoading}
   }
 }
 

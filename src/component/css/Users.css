@@ -42,4 +42,9 @@
 	font-size: 16px;
 	cursor: pointer;
 	text-decoration: underline;
+	bottom: 5%;
+}
+.loading-gif{
+	width: 80px;
+
 }
