@@ -1,12 +1,15 @@
 let initalState ={
-      posts:[
-        {id:1,posts:"Hi"},
-        {id:2,posts:"My first post"},
-        {id:3,posts:"I live"},
-        {id:4,posts:"How are you?"},
-        {id:5,posts:"Yes, Yes i good"}
-      ],
-    postValue:""
+  fullname: null,
+  photosSmall: null,
+  isAuth:false,
+  posts:[
+    {id:1,posts:"Hi"},
+    {id:2,posts:"My first post"},
+    {id:3,posts:"I live"},
+    {id:4,posts:"How are you?"},
+    {id:5,posts:"Yes, Yes i good"}
+  ],
+  postValue:""
 }
 
 const profileReducer = (state = initalState , action) =>{
@@ -27,6 +30,17 @@ const profileReducer = (state = initalState , action) =>{
           ...state,
           postValue:action.newText
         }
+      case "SET-FULLNAME":
+        return{
+          ...state,
+          fullname:action.fullname,
+          isAuth:true
+        }
+        case "SET-PROFILE-PHOTOS":
+        return{
+          ...state,
+          photosSmall:action.photosSmall
+        }
     default:
     	return state;
   }
@@ -41,6 +55,18 @@ export const profileActionCreat = {
     return {
     type:"UPDATE-NEW-POST",
     newText: text
+  }
+  },
+  setProfileFullname(name){
+    return {
+    type:"SET-FULLNAME",
+    fullname: name
+  }
+  },
+  setProfilePhotos(imgUrl){
+    return {
+    type:"SET-PROFILE-PHOTOS",
+    photosSmall: imgUrl
   }
   }
 }

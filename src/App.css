@@ -7,11 +7,19 @@ header{
   height: 60px;
   background-color: #e0afbb;
   margin-bottom: 0;
+  position: relative;
 }
 header img{
   height: 60px;
   left: 0;
   background-color: #e0afbb;
+  display: inline-block;
+}
+.header__auth{
+  right: 5%;
+  line-height: 60px;
+  display: inline-block;
+  position: absolute;
 }
 .side-bar{
   margin-left: 0;

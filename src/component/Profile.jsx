@@ -16,9 +16,9 @@ let Profile = (props) => {
       <div className='content-conteiner'>
         <img className="img-wal" src="https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300"/>
         <div className="content">
-          <img  className="content__ava"src="https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"/>
+          <img  className="content__ava"src={props.photosSmall}/>
           <div className='content-info'>
-            <h3>Almaz B</h3>
+            <h3>{props.fullname}</h3>
             <p className="p">Date of Birth: 2021</p>
             <p>City: Seoul</p>
             <p>Homosapien: true</p>
