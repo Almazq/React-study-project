@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import ProfileConteiner from './component/ProfileConteiner.js';
-import Header from './component/authConteiner';
+import Header from './component/AuthConteiner';
 import Sidebar from './component/Sidebar.jsx';
 import DialogsConteiner from './component/DialogsConteiner.js';
 import UsersConteiner from './component/UsersConteiner.js';

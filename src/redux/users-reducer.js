@@ -1,9 +1,11 @@
+
 let initalState ={
   users:[],
   page:1,
   count:10,
   textAddGetUsers: "Загрузить еще",
-  isLoading:false
+  isLoading:false,
+  followed:false,
 }
 const usersReducer = (state = initalState , action) =>{
 	switch(action.type){
@@ -12,11 +14,11 @@ const usersReducer = (state = initalState , action) =>{
         ...state,
         users:state.users.map(u =>{
           if(u.id === action.userId){
-            
             return {...u, followed:true}
           }
           return u;
         })
+
       }
       case "UnFollow":
          return{
