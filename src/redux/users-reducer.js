@@ -6,6 +6,7 @@ let initalState ={
   textAddGetUsers: "Загрузить еще",
   isLoading:false,
   followed:false,
+  loadClickValue:[],
 }
 const usersReducer = (state = initalState , action) =>{
 	switch(action.type){
@@ -41,6 +42,12 @@ const usersReducer = (state = initalState , action) =>{
         {return {...state, textAddGetUsers : "Следующая страница"}}
       case "isLoading":
         {return {...state, isLoading : action.isLoading}} 
+      case "loadClick":
+        {return {...state,
+          loadClickValue:action.loadClickValue
+          ? [...state.loadClickValue, action.userid]
+          : state.loadClickValue.filter(id => id !== action.userid)
+        }} 
     default:
     	return state;
   }
@@ -66,6 +73,9 @@ export const usersAC ={
   },
   isLoading(isLoading){
     return{type:"isLoading", isLoading}
+  },
+  loadClick(loadClickValue,userid){
+    return{type:"loadClick", loadClickValue,userid}
   }
 }
 

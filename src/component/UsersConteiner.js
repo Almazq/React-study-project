@@ -3,24 +3,23 @@ import {usersAC} from ".././redux/users-reducer";
 import {connect} from "react-redux";
 import * as axios from "axios";
 import Users from "./Users.jsx"
+import {getUsers ,followed} from "../Api/Api.js"
 import load from "../img/loader.gif"
 
 class UsersApiComponent extends React.Component{
   componentDidMount(){
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.page}&count=${this.props.count}`,{
-      withCredentials:true
-    }).then(response =>{
-      this.props.SetUsers([...response.data.items]);
+    getUsers(this.props.page, this.props.count).then(data =>{
+      this.props.SetUsers([...data.items]);
     })
   }
+  // Next page
   nextGetUsers = ()=>{
     this.props.nextGetUsersAC(this.props.page);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.page}&count=${this.props.count}`,{
-      withCredentials:true
-    }).then(response =>{
-      this.props.SetUsers([...response.data.items]);
+     getUsers(this.props.page, this.props.count).then(data =>{
+      this.props.SetUsers([...data.items]);
     })
   }
+  // Add count users
   addGetUsers = ()=>{
     if(this.props.count === 100){
       this.props.textAddGetUsersAC();
@@ -28,34 +27,29 @@ class UsersApiComponent extends React.Component{
     }else{
       this.props.isLoading(true);
       this.props.addGetUsersAC(this.props.count);
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.page}&count=${this.props.count}`,{
-      withCredentials:true
-    }).then(response =>{
+      getUsers(this.props.page, this.props.count).then(data =>{
         this.props.isLoading(false)
-        this.props.SetUsers([...response.data.items]);
+        this.props.SetUsers([...data.items]);
       })
     }
   }
+  // Follow||unFollow
   updatesFollowed = (isFollowed,user)=>{
     if (isFollowed == "Follow"){
-      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,{},{
-        withCredentials:true,
-        headers:{
-          "API-KEY":"8509dfbd-0ef6-4f57-99cf-ee0432eeab38"
-        }}).then(response=>{
-          if(response.data.resultCode == 0){
-           this.props.FollowAC(user.id)
+      this.props.loadClick(true,user.id)
+      followed(user.id, "follow").then(data=>{
+          if(data.resultCode == 0){
+            this.props.FollowAC(user.id)
           }
+          this.props.loadClick(false,user.id);
       })
     }else{
-      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,{
-        withCredentials:true,
-        headers:{
-          "API-KEY":"8509dfbd-0ef6-4f57-99cf-ee0432eeab38"
-        }}).then(response=>{
-          if(response.data.resultCode == 0){
+      this.props.loadClick(true,user.id)
+      followed(user.id, "unfollow").then(data=>{
+          if(data.resultCode == 0){
             this.props.UnFollowAC(user.id)
           }
+          this.props.loadClick(false,user.id);
       })
     }
   }
@@ -68,17 +62,20 @@ class UsersApiComponent extends React.Component{
       addGetUsers ={this.addGetUsers}
       users ={this.props.users}
       updatesFollowed = {this.updatesFollowed}
+      loadClickValue = {this.props.loadClickValue}
       />
     </>
   }
 }
+
 let mapStateToProps = (state) =>{
   return{
     users: state.Usersjsx.users,
     page: state.Usersjsx.page,
     count: state.Usersjsx.count,
     textAddGetUsers: state.Usersjsx.textAddGetUsers,
-    load: state.Usersjsx.isLoading
+    load: state.Usersjsx.isLoading,
+    loadClickValue :state.Usersjsx.loadClickValue
   }
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -103,6 +100,9 @@ let mapDispatchToProps = (dispatch) =>{
     },
     isLoading: (isLoading)=>{
       dispatch(usersAC.isLoading(isLoading))
+    },
+    loadClick: (loadClickValue,userid)=>{
+      dispatch(usersAC.loadClick(loadClickValue,userid))
     }
   }
 }
