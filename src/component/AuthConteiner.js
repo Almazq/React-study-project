@@ -2,17 +2,19 @@ import React from "react";
 import Header from "./Header";
 import * as axios from "axios";
 import {authAC} from ".././redux/auth-reducer";
+import {authMeThunkCreator} from ".././redux/auth-reducer";
 import {connect} from "react-redux";
-import {authMe} from "../Api/Api.js"
+
 
 class authConteiner extends React.Component{
 	componentDidMount(){
-		authMe().then(data =>{
-	    	if(data.resultCode === 0){
-	    		let {id,login,email} = data.data;
-	    		this.props.addPostActionCreat(id,login,email)
-	    	}
-	    })
+		this.props.authMeThunk();
+		// authMe().then(data =>{
+	 //    	if(data.resultCode === 0){
+	 //    		let {id,login,email} = data.data;
+	 //    		this.props.addPostActionCreat(id,login,email)
+	 //    	}
+	 //    })
 	}
 	render(){
 		return(
@@ -30,6 +32,9 @@ let mapDispatchToProps = (dispatch) =>{
   return{
     addPostActionCreat: (login,email,id)=>{
       dispatch(authAC.addPostActionCreat(login,email,id));
+    },
+    authMeThunk: ()=>{
+      dispatch(authMeThunkCreator());
     }
   }
 }

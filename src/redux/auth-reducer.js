@@ -1,4 +1,5 @@
 import React from "react";
+import {authMe} from ".././Api/Api.js"
 
 let initalState ={
     login:null,
@@ -20,11 +21,20 @@ const authReducer = (state = initalState , action) =>{
 }
 
 export const authAC = {
-  addPostActionCreat(userId,login,email){
+  AuthMeAction(userId,login,email){
     return {
     type:"SET-USER-AUTH",
     data:{userId,login,email}
   }
   }
 }
+export const authMeThunkCreator = ()=>{
+  return (dispath)=>{
+  authMe().then(data =>{
+    if(data.resultCode === 0){
+      let {id,login,email} = data.data;
+      dispath(authAC.AuthMeAction(id,login,email));
+    }
+  })
+  }}
 export default authReducer;

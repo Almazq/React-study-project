@@ -14,6 +14,9 @@ export const authMe = ()=>{
 export const getUsers = (page,count) =>{
 	return instance.get(`users?page=${page}&count=${count}`).then(response =>{return response.data});
 }
+export const profileInfo = (id)=>{
+	return instance.get(`profile/${id}`).then(response =>{return response.data});
+}
 export const followed = (id,isFollowed) =>{
 	if (isFollowed === "follow"){ 
 		return instance.post(`follow/${id}`).then(response =>{return response.data});
