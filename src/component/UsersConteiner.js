@@ -1,10 +1,11 @@
 import React from 'react';
+import {compose } from 'redux';
 import {getUsersThunkCreator} from ".././redux/users-reducer";
 import {nextGetUsersThunkCreator} from ".././redux/users-reducer";
 import {addGetUsersThunkCreator} from ".././redux/users-reducer";
 import {updatesFollowThunkCreator} from ".././redux/users-reducer";
+import {withAuthNagivate} from ".././HOC/authNavigate";
 import {connect} from "react-redux";
-import * as axios from "axios";
 import Users from "./Users.jsx"
 import load from "../img/loader.gif"
 
@@ -36,7 +37,6 @@ class UsersApiComponent extends React.Component{
     </>
   }
 }
-//
 let mapStateToProps = (state) =>{
   return{
     users: state.Usersjsx.users,
@@ -63,6 +63,8 @@ let mapDispatchToProps = (dispatch) =>{
   }
 }
 
-const UsersConteiner = connect(mapStateToProps,mapDispatchToProps)(UsersApiComponent);
-
-export default UsersConteiner;
+let composeCont = compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  withAuthNagivate
+)(UsersApiComponent)
+export default composeCont;

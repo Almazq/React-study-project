@@ -1,6 +1,8 @@
 import React from 'react';
 import './css/Dialogs.css';
 import {NavLink} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+
 
 function Dialogs(props){
 	let NameMap =
@@ -17,6 +19,9 @@ function Dialogs(props){
 	}
 	let massegAdd = ()=>{
 		props.addMassegeActionCreat();
+	}
+	if(props.isAuth === false) {
+		return <Navigate to="/Login" />
 	}
 	return(
 		<div>

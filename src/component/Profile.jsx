@@ -1,11 +1,12 @@
- import React from 'react';
+import React from 'react';
 
-let Profile = (props) => { 
+
+let Profile = (props) => {
 
   let postalert = ()=>{
     props.addPostActionCreat();
   }
-  let postMap = 
+  let postMap =
     props.posts.map(post => <div className="post" key = {post.id}>{post.posts}</div>);
 
   let onChangePost = (e)=>{

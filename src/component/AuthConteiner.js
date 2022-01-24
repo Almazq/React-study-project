@@ -9,12 +9,6 @@ import {connect} from "react-redux";
 class authConteiner extends React.Component{
 	componentDidMount(){
 		this.props.authMeThunk();
-		// authMe().then(data =>{
-	 //    	if(data.resultCode === 0){
-	 //    		let {id,login,email} = data.data;
-	 //    		this.props.addPostActionCreat(id,login,email)
-	 //    	}
-	 //    })
 	}
 	render(){
 		return(
@@ -30,9 +24,6 @@ let mapStateToProps = (state) =>{
 }
 let mapDispatchToProps = (dispatch) =>{
   return{
-    addPostActionCreat: (login,email,id)=>{
-      dispatch(authAC.addPostActionCreat(login,email,id));
-    },
     authMeThunk: ()=>{
       dispatch(authMeThunkCreator());
     }

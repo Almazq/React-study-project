@@ -2,14 +2,16 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {dialogActionCreat} from ".././redux/dialog-reducer";
 import Dialogs from "./Dialogs";
+import {withAuthNagivate} from ".././HOC/authNavigate";
 import {connect} from "react-redux"
+import {compose } from 'redux'
 
 let mapStateToProps = (state) =>{
 	return{
 		listname: state.Dialogjsx.listname,
 		ava: state.Dialogjsx.ava,
 		massegeValue: state.Dialogjsx.massegeValue,
-		massege: state.Dialogjsx.massege
+		massege: state.Dialogjsx.massege,
 	}
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -21,7 +23,10 @@ let mapDispatchToProps = (dispatch) =>{
 			dispatch(dialogActionCreat.addMassegeActionCreat());
 		}
 	}
-
 }
-const DialogsConteiner = connect(mapStateToProps,mapDispatchToProps)(Dialogs);
-export default DialogsConteiner;
+let composeCont = compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  withAuthNagivate
+)(Dialogs)
+
+export default composeCont;

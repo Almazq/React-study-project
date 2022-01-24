@@ -1,11 +1,10 @@
 import React from 'react';
 import {profileActionCreat} from ".././redux/profile-reducer";
 import {profileThunkCreator} from ".././redux/profile-reducer";
+import {withAuthNagivate} from ".././HOC/authNavigate";
 import Profile from "./Profile"
-import AuthPage from "./AuthPage"
 import {connect} from "react-redux";
-import * as axios from "axios";
-// import {profileThunkCreator} from ".././redux/profile-reducer";
+import {compose } from 'redux'
 
 
 class ProfileConteiner extends React.Component{
@@ -13,7 +12,7 @@ class ProfileConteiner extends React.Component{
     this.props.profileThunk()
   }
   render(){
-    return this.props.isAuth ? <Profile {...this.props}/> : <AuthPage />
+    return <Profile {...this.props}/>
   }
 }
 let mapStateToProps = (state) =>{
@@ -22,7 +21,6 @@ let mapStateToProps = (state) =>{
     posts: state.Profilejsx.posts,
     fullname: state.Profilejsx.fullname,
     photosSmall: state.Profilejsx.photosSmall,
-    isAuth: state.Profilejsx.isAuth,
   }
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -32,12 +30,16 @@ let mapDispatchToProps = (dispatch) =>{
     },
     addPostActionCreat: ()=>{
       dispatch(profileActionCreat.addPostActionCreat());
-    }, 
+    },
     profileThunk:()=>{
       dispatch(profileThunkCreator());
     }
   }
 }
 
-const ProfileConnectConteiner = connect(mapStateToProps,mapDispatchToProps)(ProfileConteiner);
-export default ProfileConnectConteiner;
+let composeCont = compose(
+  connect(mapStateToProps,mapDispatchToProps),
+  withAuthNagivate
+)(ProfileConteiner)
+
+export default composeCont;

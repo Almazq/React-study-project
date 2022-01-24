@@ -1,5 +1,4 @@
 import {createStore,combineReducers,applyMiddleware} from "redux";
-// import {} from "redux";
 import thunkMiddleware from 'redux-thunk'
 import profileReducer from "./profile-reducer";
 import dialogReducer from "./dialog-reducer";

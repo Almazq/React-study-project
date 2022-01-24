@@ -79,15 +79,12 @@ export const profileThunkCreator = ()=>{
   return (dispath)=>{
   authMe().then(data =>{
     if(data.resultCode === 0){
-          profileInfo(data.data.id).then(datainfo =>{
-            dispath(profileActionCreat.setProfileFullname(datainfo.fullName));
-            if (datainfo.photos.small === null) {
-              dispath(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
-            }
-            // datainfo.data.photos.small === null 
-            // ? dispath(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
-            // dispath(profileActionCreat.setProfilePhotos(datainfo.photos.small))
-          })
+      profileInfo(data.data.id).then(datainfo =>{
+        dispath(profileActionCreat.setProfileFullname(datainfo.fullName));
+        if (datainfo.photos.small === null) {
+          dispath(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
+        }
+      })
     }
   })
 }}
