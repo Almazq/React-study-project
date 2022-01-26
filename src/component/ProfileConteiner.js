@@ -1,6 +1,7 @@
 import React from 'react';
 import {profileActionCreat} from ".././redux/profile-reducer";
 import {profileThunkCreator} from ".././redux/profile-reducer";
+import {newSetProfileStatus} from ".././redux/profile-reducer";
 import {withAuthNagivate} from ".././HOC/authNavigate";
 import Profile from "./Profile"
 import {connect} from "react-redux";
@@ -21,6 +22,7 @@ let mapStateToProps = (state) =>{
     posts: state.Profilejsx.posts,
     fullname: state.Profilejsx.fullname,
     photosSmall: state.Profilejsx.photosSmall,
+    profileStatus: state.Profilejsx.status,
   }
 }
 let mapDispatchToProps = (dispatch) =>{
@@ -33,6 +35,12 @@ let mapDispatchToProps = (dispatch) =>{
     },
     profileThunk:()=>{
       dispatch(profileThunkCreator());
+    },
+    updateNewStatus:(status)=>{
+      dispatch(profileActionCreat.updateNewStatus(status));
+    },
+    newSetProfileStatus:(status)=>{
+      dispatch(newSetProfileStatus(status));
     }
   }
 }

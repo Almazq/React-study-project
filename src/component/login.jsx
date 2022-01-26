@@ -1,4 +1,5 @@
 import React from 'react';
+import Profile from './ProfileStatus'
 
 let login = (props) => {
   return(

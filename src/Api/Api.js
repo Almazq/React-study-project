@@ -18,9 +18,15 @@ export const profileInfo = (id)=>{
 	return instance.get(`profile/${id}`).then(response =>{return response.data});
 }
 export const followed = (id,isFollowed) =>{
-	if (isFollowed === "follow"){ 
+	if (isFollowed === "follow"){
 		return instance.post(`follow/${id}`).then(response =>{return response.data});
 	}else{
 		return instance.delete(`follow/${id}`).then(response =>{return response.data});
 	}
+}
+export const profileStatus = (id)=>{
+	return instance.get(`profile/status/${id}`).then(response =>{return response.data})
+}
+export const newProfileStatus = (newStatus)=>{
+	return instance.put(`profile/status`,{status:newStatus}).then(response =>{return response.data})
 }

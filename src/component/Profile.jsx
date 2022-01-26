@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Status from './ProfileStatus';
 
 let Profile = (props) => {
 
@@ -23,7 +23,7 @@ let Profile = (props) => {
             <p className="p">Date of Birth: 2021</p>
             <p>City: Seoul</p>
             <p>Homosapien: true</p>
-            <p>Web Site: Google.com</p>
+            <Status data={props}/>
           </div>
           <div className="content-conteiner__comment">
             <h3>Comment</h3>
@@ -34,6 +34,8 @@ let Profile = (props) => {
             {postMap}
           </div>
         </div>
+        <status />
+
       </div>
   );
 }
