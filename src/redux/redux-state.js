@@ -10,7 +10,7 @@ let reducers = combineReducers({
 	Profilejsx: profileReducer,
 	Dialogjsx: dialogReducer,
 	Usersjsx: usersReducer,
-	auth: authReducer
+	auth: authReducer,
 })
 
 let store = createStore(reducers,applyMiddleware(thunkMiddleware));

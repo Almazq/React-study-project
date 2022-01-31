@@ -30,3 +30,9 @@ export const profileStatus = (id)=>{
 export const newProfileStatus = (newStatus)=>{
 	return instance.put(`profile/status`,{status:newStatus}).then(response =>{return response.data})
 }
+export const authLogin = (email,password)=>{
+	return instance.post(`/auth/login`,{
+		email:email,
+		password:password,
+	}).then(response =>{return response.data})
+}

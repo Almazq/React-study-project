@@ -16,11 +16,11 @@ let mapStateToProps = (state) =>{
 }
 let mapDispatchToProps = (dispatch) =>{
 	return{
-		upDateNewMassegeActionCreat:(text)=> {
-			dispatch(dialogActionCreat.upDateNewMassegeActionCreat(text))
-		},
-		addMassegeActionCreat: ()=>{
-			dispatch(dialogActionCreat.addMassegeActionCreat());
+		// upDateNewMassegeActionCreat:(text)=> {
+		// 	dispatch(dialogActionCreat.upDateNewMassegeActionCreat(text))
+		// },
+		addMassegeActionCreat: (newMassege)=>{
+			dispatch(dialogActionCreat.addMassegeActionCreat(newMassege));
 		}
 	}
 }

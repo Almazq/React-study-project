@@ -6,7 +6,7 @@ let initalState ={
         { id: 4, massegeMe:"How you like that"},
         { id: 5, massegeMe:"How you like that"},
         ],
-      massegeValue:"",
+      // massegeValue:"",
       listname:[
         {id:1,name:"Sofia",src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYorZ4x7ZeAD-lZzQKRVJR_-yQlO7Tqu20ag&usqp=CAU"},
         {id:2,name:"Rose",src:"https://pbs.twimg.com/profile_images/1156680540923342848/VYksBl_m.jpg"},
@@ -14,7 +14,7 @@ let initalState ={
         {id:4,name:"Danial",src:"https://www.meme-arsenal.com/memes/4b2297da1fcfec945b860771127d876c.jpg"},
         {id:5,name:"Jisoo Kim",src:"https://i.pinimg.com/736x/e4/55/0c/e4550c67e244a14282cb3ff711c1ac99.jpg"},
         {id:6,name:"Almaz",src:"https://www.meme-arsenal.com/memes/0c73cae537b8fa8ea5fe0286483cf032.jpg"}],
-      
+
     }
 
 
@@ -24,19 +24,13 @@ const dialogReducer = (state = initalState, action) =>{
       case "ADD-MASSEGE":
       let newtext ={
         id:state.massege.length + 1,
-        massegeMe:state.massegeValue
+        massegeMe: action.newMassege
       };
       return{
         ...state,
-        massegeValue: "",
         massege:[...state.massege , newtext]
-    
+
     }
-      case "UPDATE-NEW-MASSEGE":
-      return{
-        ...state,
-        massegeValue:action.newText
-      }
       default:
         return state;
 
@@ -44,17 +38,18 @@ const dialogReducer = (state = initalState, action) =>{
 }
 
 export const dialogActionCreat = {
-  addMassegeActionCreat(){
+  addMassegeActionCreat(newMassege){
     return {
-    type:"ADD-MASSEGE"
-  }
+      type:"ADD-MASSEGE",
+      newMassege:newMassege,
+    }
   },
-  upDateNewMassegeActionCreat(text){
-    return {
-    type:"UPDATE-NEW-MASSEGE",
-    newText: text
-  }
-  }
+  // upDateNewMassegeActionCreat(text){
+  //   return {
+  //   type:"UPDATE-NEW-MASSEGE",
+  //   newText: text
+  // }
+  // }
 }
 
 export default dialogReducer;

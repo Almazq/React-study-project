@@ -27,11 +27,8 @@ let mapStateToProps = (state) =>{
 }
 let mapDispatchToProps = (dispatch) =>{
   return{
-    upDateNewPostActionCreat: (text)=>{
-      dispatch(profileActionCreat.upDateNewPostActionCreat(text));
-    },
-    addPostActionCreat: ()=>{
-      dispatch(profileActionCreat.addPostActionCreat());
+    addPostActionCreat: (newPost)=>{
+      dispatch(profileActionCreat.addPostActionCreat(newPost));
     },
     profileThunk:()=>{
       dispatch(profileThunkCreator());

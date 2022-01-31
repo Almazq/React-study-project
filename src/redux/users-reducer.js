@@ -1,6 +1,6 @@
 import {getUsers,followed} from "../Api/Api.js";
 
-let initalState ={
+let initalState = {
   users:[],
   page:1,
   count:10,
@@ -9,7 +9,7 @@ let initalState ={
   followed:false,
   loadClickValue:[],
 }
-const usersReducer = (state = initalState , action) =>{
+const usersReducer = (state = initalState , action) => {
 	switch(action.type){
     case "FOLLOW":
       return{
@@ -36,24 +36,24 @@ const usersReducer = (state = initalState , action) =>{
        return { ...state, users: action.users}
 
       case "NEXT-GET-USERS":
-        {return {...state, page : action.page + 1,count:10}} 
+        {return {...state, page : action.page + 1,count:10}}
       case "ADD-GET-USERS":
         {return {...state, count : action.count + 5}}
       case "TEXT-ADD-GET-USERS":
         {return {...state, textAddGetUsers : "Следующая страница"}}
       case "IS-LOADING":
-        {return {...state, isLoading : action.isLoading}} 
+        {return {...state, isLoading : action.isLoading}}
       case "LOAD-CLICK":
         {return {...state,
           loadClickValue:action.loadClickValue
           ? [...state.loadClickValue, action.userid]
           : state.loadClickValue.filter(id => id !== action.userid)
-        }} 
+        }}
     default:
     	return state;
   }
 }
-export const usersAC ={
+export const usersAC = {
   FollowAC(userId){
     return {type:"FOLLOW",userId}
   },
@@ -110,10 +110,10 @@ export const addGetUsersThunkCreator = (page,count)=>{
 }
 export const updatesFollowThunkCreator = (isFollowed,user)=>{
   return (dispath)=>{
-     if (isFollowed == "Follow"){
+     if (isFollowed === "Follow"){
       dispath(usersAC.loadClick(true,user.id))
       followed(user.id, "follow").then(data=>{
-          if(data.resultCode == 0){
+          if(data.resultCode === 0){
             dispath(usersAC.FollowAC(user.id))
           }
           dispath(usersAC.loadClick(false,user.id));
@@ -121,7 +121,7 @@ export const updatesFollowThunkCreator = (isFollowed,user)=>{
       }else{
         dispath(usersAC.loadClick(true,user.id))
         followed(user.id, "unfollow").then(data=>{
-            if(data.resultCode == 0){
+            if(data.resultCode === 0){
               dispath(usersAC.UnFollowAC(user.id))
             }
             dispath(usersAC.loadClick(false,user.id));

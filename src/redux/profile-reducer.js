@@ -15,7 +15,6 @@ let initalState ={
     {id:4,posts:"How are you?"},
     {id:5,posts:"Yes, Yes i good"}
   ],
-  postValue:"",
   status:"",
 }
 
@@ -24,19 +23,12 @@ const profileReducer = (state = initalState , action) =>{
     case "ADD-POST":
       let newtext ={
         id:state.posts.length + 1,
-        posts:state.postValue
+        posts:action.newPost
       };
       return{
         ...state,
-        postValue: "",
         posts:[...state.posts , newtext]
       }
-
-     case "UPDATE-NEW-POST":
-        return{
-          ...state,
-          postValue:action.newText
-        }
       case "SET-FULLNAME":
         return{
           ...state,
@@ -63,15 +55,10 @@ const profileReducer = (state = initalState , action) =>{
   }
 }
 export const profileActionCreat = {
-  addPostActionCreat(){
+  addPostActionCreat(newPost){
       return {
-      type:"ADD-POST"
-    }
-  },
-  upDateNewPostActionCreat(text){
-    return {
-      type:"UPDATE-NEW-POST",
-      newText: text
+      type:"ADD-POST",
+      newPost:newPost
     }
   },
   setProfileFullname(name){
@@ -102,11 +89,14 @@ export const profileActionCreat = {
 
 export const profileThunkCreator = ()=>{
   return (dispath)=>{
+
   authMe().then(data =>{
     if(data.resultCode === 0){
+
       profileStatus(data.data.id).then(responseStatus =>{
         dispath(profileActionCreat.setProfileStatus(responseStatus))
       })
+
       profileInfo(data.data.id).then(datainfo =>{
         dispath(profileActionCreat.setProfileFullname(datainfo.fullName));
         if (datainfo.photos.small === null) {

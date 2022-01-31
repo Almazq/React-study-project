@@ -1,10 +1,18 @@
 import React from 'react';
 import './css/Dialogs.css';
 import {NavLink} from 'react-router-dom';
-import {Navigate} from 'react-router-dom';
+import {useFormik} from 'formik';
 
 
 function Dialogs(props){
+	const formik = useFormik({
+		initialValues:{
+			masseg:""
+		},
+		onSubmit:(values)=>{
+			props.addMassegeActionCreat(values.masseg);
+		}
+	})
 	let NameMap =
 		props.listname.map(name => <div className="dialogs__list__name" key="name.id">
 				<div className="dialogs__ava"><img src={name.src}className="dialogs__ava__img" /></div>
@@ -13,27 +21,21 @@ function Dialogs(props){
 	let Dialogsmap =
 		props.massege.map( masseg => <div className="dialogs__chats__massege__me" key="masseg.id">{masseg.massegeMe}</div>);
 
-	let massegChange = (e)=>{
-		let text = e.target.value;
-		props.upDateNewMassegeActionCreat(text)
-	}
-	let massegAdd = ()=>{
-		props.addMassegeActionCreat();
-	}
-	if(props.isAuth === false) {
-		return <Navigate to="/Login" />
-	}
 	return(
-		<div>
-			<div className="dialogs__list">
-				{NameMap}				
+		<form onSubmit={formik.handleSubmit}>
+			<div>
+				<div className="dialogs__list">
+					{NameMap}
+				</div>
+				<div className="dialogs__chats">
+					{Dialogsmap}
+					<div className="dialogs__chats__input">
+						<input type="text" name="masseg" value={formik.values.masseg} onChange={formik.handleChange}/>
+						<button type="submit">></button>
+					</div>
+				</div>
 			</div>
-			<div className="dialogs__chats">
-				{Dialogsmap}
-				<div className="dialogs__chats__input"><input type="text"  value={props.massegeValue} onChange={massegChange}/>
-				<button onClick={massegAdd}>></button></div>
-			</div>
-		</div>
+		</form>
 		)
 }
 

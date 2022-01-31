@@ -2,7 +2,15 @@ import React from 'react';
 
 class Status extends React.Component{
   state = {
-    editMode:false
+    editMode:false,
+    status:this.props.data.profileStatus,
+  }
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.status !== this.props.data.profileStatus){
+      this.setState({
+        status:this.props.data.profileStatus
+      })
+    }
   }
   activeChange = ()=>{
     this.setState({
@@ -13,7 +21,7 @@ class Status extends React.Component{
     this.setState({
       editMode:false
     })
-    this.props.data.newSetProfileStatus(this.props.data.profileStatus);
+    this.props.data.newSetProfileStatus(this.state.status);
   }
   onChangeStatus = (e)=>{
     let text = e.target.value;
@@ -23,8 +31,8 @@ class Status extends React.Component{
     return(
       <div>
         {!this.state.editMode
-          ?<div onDoubleClick={this.activeChange}><p>Status:{this.props.data.profileStatus === null ? "no status" :this.props.data.profileStatus}</p></div>
-          :<div><input onBlur={this.deactiveChange}type="text" value={this.props.data.profileStatus} onChange={this.onChangeStatus}/></div>
+          ?<div onDoubleClick={this.activeChange}><p>Status:{this.state.status === null ? "no status" :this.state.status}</p></div>
+          :<div><input onBlur={this.deactiveChange}type="text" value={this.state.status} onChange={this.onChangeStatus}/></div>
         }
 
 
