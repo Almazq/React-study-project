@@ -3,6 +3,7 @@ import Header from "./Header";
 import * as axios from "axios";
 import {authAC} from ".././redux/auth-reducer";
 import {authMeThunkCreator} from ".././redux/auth-reducer";
+import {authLogoutThunkCreator} from ".././redux/auth-reducer";
 import {connect} from "react-redux";
 
 
@@ -26,7 +27,10 @@ let mapDispatchToProps = (dispatch) =>{
   return{
     authMeThunk: ()=>{
       dispatch(authMeThunkCreator());
-    }
+    },
+		logout:()=>{
+			dispatch(authLogoutThunkCreator())
+		}
   }
 }
 

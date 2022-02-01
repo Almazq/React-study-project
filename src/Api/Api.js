@@ -14,9 +14,11 @@ export const authMe = ()=>{
 export const getUsers = (page,count) =>{
 	return instance.get(`users?page=${page}&count=${count}`).then(response =>{return response.data});
 }
+
 export const profileInfo = (id)=>{
 	return instance.get(`profile/${id}`).then(response =>{return response.data});
 }
+
 export const followed = (id,isFollowed) =>{
 	if (isFollowed === "follow"){
 		return instance.post(`follow/${id}`).then(response =>{return response.data});
@@ -24,15 +26,22 @@ export const followed = (id,isFollowed) =>{
 		return instance.delete(`follow/${id}`).then(response =>{return response.data});
 	}
 }
+
 export const profileStatus = (id)=>{
 	return instance.get(`profile/status/${id}`).then(response =>{return response.data})
 }
+
 export const newProfileStatus = (newStatus)=>{
 	return instance.put(`profile/status`,{status:newStatus}).then(response =>{return response.data})
 }
+
 export const authLogin = (email,password)=>{
 	return instance.post(`/auth/login`,{
 		email:email,
 		password:password,
+		rememberMe: false,
 	}).then(response =>{return response.data})
+}
+export const authLogout = ()=>{
+	return instance.delete(`/auth/login`).then(response =>{return response.data})
 }

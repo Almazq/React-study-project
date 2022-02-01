@@ -1,23 +1,26 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {connect} from "react-redux";
+import {authLoginThunkCreator} from ".././redux/auth-reducer.js";
+import {Navigate} from 'react-router-dom';
 
-const LoginForm =()=>{
+const LoginForm =(props)=>{
   const formik = useFormik({
     initialValues:{
-      login:"",
+      email:"",
       password:""
     },
     onSubmit:(values)=>{
-      console.log(values)
+      props.getInfoSubmit(values)
     }
   })
     return(
         <form onSubmit={formik.handleSubmit}>
           <div>
-            <input name="login" type="text" onChange={formik.handleChange} value={formik.values.login}/>
+            <input name="email" type="text" onChange={formik.handleChange} value={formik.values.email}/>
           </div>
           <div>
-            <input name="password" type="text" onChange={formik.handleChange} value={formik.values.password} />
+            <input name="password" type="password" onChange={formik.handleChange} value={formik.values.password} />
           </div>
           <div>
             <button type="submit">login</button>
@@ -26,17 +29,23 @@ const LoginForm =()=>{
     );
 }
 const Login = (props)=>{
+  const getInfoSubmit = (values)=>{
+    props.authLoginThunkCreator(values.email,values.password)
+  }
+  if(props.isAuth){
+    return <Navigate to="/Profile/me" />
+  }
   return(
     <div>
       <h1>login</h1>
-      <LoginForm />
+      <LoginForm getInfoSubmit={getInfoSubmit}/>
     </div>
   )
 }
-// this.state.isChekbox ? this.setState({isChekbox:false}):this.setState({isChekbox:true})}}
-// <div>
-//   <input id="isChekbox" type="checkbox"
-//     onClick={()=>{this.state.isChekbox ? this.setState({isChekbox:false}):this.setState({isChekbox:true})}} />
-// </div>
+const mapStateToProps = (state)=>{
+  return{
+    isAuth:state.auth.isAuth,
+  }
+}
 
-export default Login;
+export default connect(mapStateToProps,{authLoginThunkCreator})(Login);
