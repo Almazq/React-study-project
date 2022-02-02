@@ -23,6 +23,9 @@ const LoginForm =(props)=>{
             <input name="password" type="password" onChange={formik.handleChange} value={formik.values.password} />
           </div>
           <div>
+            {props.loginStatus ? "" :"error"}
+          </div>
+          <div>
             <button type="submit">login</button>
           </div>
         </form>
@@ -38,13 +41,14 @@ const Login = (props)=>{
   return(
     <div>
       <h1>login</h1>
-      <LoginForm getInfoSubmit={getInfoSubmit}/>
+      <LoginForm getInfoSubmit={getInfoSubmit} loginStatus={props.loginStatus}/>
     </div>
   )
 }
 const mapStateToProps = (state)=>{
   return{
     isAuth:state.auth.isAuth,
+    loginStatus:state.auth.loginStatus,
   }
 }
 

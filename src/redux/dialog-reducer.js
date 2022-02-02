@@ -43,13 +43,7 @@ export const dialogActionCreat = {
       type:"ADD-MASSEGE",
       newMassege:newMassege,
     }
-  },
-  // upDateNewMassegeActionCreat(text){
-  //   return {
-  //   type:"UPDATE-NEW-MASSEGE",
-  //   newText: text
-  // }
-  // }
+  }
 }
 
 export default dialogReducer;

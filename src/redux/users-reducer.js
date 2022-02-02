@@ -81,50 +81,50 @@ export const usersAC = {
 }
 
 export const getUsersThunkCreator = (page,count)=>{
-  return (dispath)=>{
+  return (dispatch)=>{
     getUsers(page, count).then(data =>{
-      dispath(usersAC.SetUsersAC([...data.items]));
+      dispatch(usersAC.SetUsersAC([...data.items]));
     })
   }
 }
 export const nextGetUsersThunkCreator = (page,count)=>{
-  return (dispath)=>{
-    dispath(usersAC.nextGetUsersAC(page));
-    dispath(getUsersThunkCreator(page,count))
+  return (dispatch)=>{
+    dispatch(usersAC.nextGetUsersAC(page));
+    dispatch(getUsersThunkCreator(page,count))
   }
 }
 export const addGetUsersThunkCreator = (page,count)=>{
-  return (dispath)=>{
+  return (dispatch)=>{
     if(count === 100){
-      dispath(usersAC.textAddGetUsersAC());
-      dispath(nextGetUsersThunkCreator(page,count));
+      dispatch(usersAC.textAddGetUsersAC());
+      dispatch(nextGetUsersThunkCreator(page,count));
     }else{
-      dispath(usersAC.isLoading(true));
-      dispath(usersAC.addGetUsersAC(count));
+      dispatch(usersAC.isLoading(true));
+      dispatch(usersAC.addGetUsersAC(count));
       getUsers(page, count).then(data =>{
-        dispath(usersAC.isLoading(false))
-        dispath(usersAC.SetUsersAC([...data.items]));
+        dispatch(usersAC.isLoading(false))
+        dispatch(usersAC.SetUsersAC([...data.items]));
       })
     }
   }
 }
 export const updatesFollowThunkCreator = (isFollowed,user)=>{
-  return (dispath)=>{
+  return (dispatch)=>{
      if (isFollowed === "Follow"){
-      dispath(usersAC.loadClick(true,user.id))
+      dispatch(usersAC.loadClick(true,user.id))
       followed(user.id, "follow").then(data=>{
           if(data.resultCode === 0){
-            dispath(usersAC.FollowAC(user.id))
+            dispatch(usersAC.FollowAC(user.id))
           }
-          dispath(usersAC.loadClick(false,user.id));
+          dispatch(usersAC.loadClick(false,user.id));
       })
       }else{
-        dispath(usersAC.loadClick(true,user.id))
+        dispatch(usersAC.loadClick(true,user.id))
         followed(user.id, "unfollow").then(data=>{
             if(data.resultCode === 0){
-              dispath(usersAC.UnFollowAC(user.id))
+              dispatch(usersAC.UnFollowAC(user.id))
             }
-            dispath(usersAC.loadClick(false,user.id));
+            dispatch(usersAC.loadClick(false,user.id));
         })
       }
     }

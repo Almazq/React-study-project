@@ -20,7 +20,7 @@ class authConteiner extends React.Component{
 let mapStateToProps = (state) =>{
   return{
     login:state.auth.login,
-    isAuth:state.auth.isAuth
+    isAuth:state.auth.isAuth,
   }
 }
 let mapDispatchToProps = (dispatch) =>{

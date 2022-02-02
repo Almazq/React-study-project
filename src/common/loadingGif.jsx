@@ -1,11 +1,11 @@
 import react from "react";
-import load from "../img/loader.gif"
-let loadingGif = (props)=>{
+import load from ".././img/loader.gif"
+let LoadingGif = (props)=>{
 	return (
 		<div>
-			<img src={load} className="loading-gif"/>
+			<img src={load}/>
 		</div>
 
 	)
 }
-export default loadingGif;
+export default LoadingGif;

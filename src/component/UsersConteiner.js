@@ -7,7 +7,7 @@ import {updatesFollowThunkCreator} from ".././redux/users-reducer";
 import {withAuthNagivate} from ".././HOC/authNavigate";
 import {connect} from "react-redux";
 import Users from "./Users.jsx"
-import load from "../img/loader.gif"
+import load from ".././img/loader.gif"
 
 class UsersApiComponent extends React.Component{
   componentDidMount(){
@@ -43,7 +43,8 @@ let mapStateToProps = (state) =>{
     page: state.Usersjsx.page,
     count: state.Usersjsx.count,
     textAddGetUsers: state.Usersjsx.textAddGetUsers,
-    loadClickValue :state.Usersjsx.loadClickValue
+    loadClickValue :state.Usersjsx.loadClickValue,
+    load :state.Usersjsx.isLoading,
   }
 }
 let mapDispatchToProps = (dispatch) =>{

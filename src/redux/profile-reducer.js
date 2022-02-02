@@ -88,19 +88,19 @@ export const profileActionCreat = {
 }
 
 export const profileThunkCreator = ()=>{
-  return (dispath)=>{
+  return (dispatch)=>{
 
   authMe().then(data =>{
     if(data.resultCode === 0){
 
       profileStatus(data.data.id).then(responseStatus =>{
-        dispath(profileActionCreat.setProfileStatus(responseStatus))
+        dispatch(profileActionCreat.setProfileStatus(responseStatus))
       })
 
       profileInfo(data.data.id).then(datainfo =>{
-        dispath(profileActionCreat.setProfileFullname(datainfo.fullName));
+        dispatch(profileActionCreat.setProfileFullname(datainfo.fullName));
         if (datainfo.photos.small === null) {
-          dispath(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
+          dispatch(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
         }
       })
     }
@@ -108,7 +108,7 @@ export const profileThunkCreator = ()=>{
 }}
 
 export const newSetProfileStatus = (status)=>{
-  return (dispath)=>{
+  return (dispatch)=>{
     newProfileStatus(status);
   }
 }
