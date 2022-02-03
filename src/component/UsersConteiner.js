@@ -4,6 +4,7 @@ import {getUsersThunkCreator} from ".././redux/users-reducer";
 import {nextGetUsersThunkCreator} from ".././redux/users-reducer";
 import {addGetUsersThunkCreator} from ".././redux/users-reducer";
 import {updatesFollowThunkCreator} from ".././redux/users-reducer";
+import {getUsersSelect,usersPageSelect,usersCountSelect,textAddGetUsersSelect,loadClickSelect,isLoadingSelect} from ".././redux/select";
 import {withAuthNagivate} from ".././HOC/authNavigate";
 import {connect} from "react-redux";
 import Users from "./Users.jsx"
@@ -39,12 +40,12 @@ class UsersApiComponent extends React.Component{
 }
 let mapStateToProps = (state) =>{
   return{
-    users: state.Usersjsx.users,
-    page: state.Usersjsx.page,
-    count: state.Usersjsx.count,
-    textAddGetUsers: state.Usersjsx.textAddGetUsers,
-    loadClickValue :state.Usersjsx.loadClickValue,
-    load :state.Usersjsx.isLoading,
+    users: getUsersSelect(state),
+    page: usersPageSelect(state),
+    count: usersCountSelect(state),
+    textAddGetUsers: textAddGetUsersSelect(state),
+    loadClickValue : loadClickSelect(state),
+    load : isLoadingSelect(state),
   }
 }
 let mapDispatchToProps = (dispatch) =>{
