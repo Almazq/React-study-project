@@ -1,28 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {profileActionCreat} from ".././redux/profile-reducer";
 import {profileThunkCreator} from ".././redux/profile-reducer";
 import {newSetProfileStatus} from ".././redux/profile-reducer";
 import {withAuthNagivate} from ".././HOC/authNavigate";
+import {postValueSelect,getPostseSelect,fullnameSelect,photosSmallSelect,profileStatusSelect} from ".././redux/select";
 import Profile from "./Profile"
 import {connect} from "react-redux";
 import {compose } from 'redux'
 
-
-class ProfileConteiner extends React.Component{
-  componentDidMount(){
-    this.props.profileThunk()
-  }
-  render(){
-    return <Profile {...this.props}/>
-  }
+const ProfileConteiner = (props) =>{
+  useEffect(()=>{
+    props.profileThunk()
+  },[])
+  return <Profile {...props}/>
 }
+
 let mapStateToProps = (state) =>{
   return{
-    postValue: state.Profilejsx.postValue,
-    posts: state.Profilejsx.posts,
-    fullname: state.Profilejsx.fullname,
-    photosSmall: state.Profilejsx.photosSmall,
-    profileStatus: state.Profilejsx.status,
+    postValue: postValueSelect(state),
+    posts: getPostseSelect(state),
+    fullname: fullnameSelect(state),
+    photosSmall: photosSmallSelect(state),
+    profileStatus: profileStatusSelect(state),
   }
 }
 let mapDispatchToProps = (dispatch) =>{

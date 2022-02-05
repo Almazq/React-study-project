@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {compose } from 'redux';
 import {getUsersThunkCreator} from ".././redux/users-reducer";
 import {nextGetUsersThunkCreator} from ".././redux/users-reducer";
@@ -10,34 +10,34 @@ import {connect} from "react-redux";
 import Users from "./Users.jsx"
 import load from ".././img/loader.gif"
 
-class UsersApiComponent extends React.Component{
-  componentDidMount(){
-    this.props.getUsersThunk(this.props.page,this.props.count)
-  }
+
+const UsersApiComponent = (props)=>{
+  useEffect(()=>{
+    props.getUsersThunk(props.page,props.count)
+  },[])
   // Next page
-  nextGetUsers = ()=>{
-    this.props.nextGetUsersThunk(this.props.page,this.props.count)
+  const nextGetUsers = ()=>{
+    props.nextGetUsersThunk(props.page,props.count)
   }
   // Add count users
-  addGetUsers = ()=>{
-    this.props.addGetUsersThunk(this.props.page,this.props.count)
+  const addGetUsers = ()=>{
+    props.addGetUsersThunk(props.page,props.count)
   }
   // Follow||unFollow
-  updatesFollowed = (isFollowed,user)=>{
-    this.props.updateFollowThunk(isFollowed,user)
+  const updatesFollowed = (isFollowed,user)=>{
+    props.updateFollowThunk(isFollowed,user)
   }
-  render(){
-    return <>
-      <Users users ={this.props.users}
-      textAddGetUsers ={this.props.load ? <img src={load} className="loading-gif"/> : this.props.textAddGetUsers}
-      addGetUsers ={this.addGetUsers}
-      users ={this.props.users}
-      updatesFollowed = {this.updatesFollowed}
-      loadClickValue = {this.props.loadClickValue}
-      />
-    </>
-  }
+  return <>
+        <Users users ={props.users}
+        textAddGetUsers ={props.load ? <img src={load} className="loading-gif"/> : props.textAddGetUsers}
+        addGetUsers ={addGetUsers}
+        users ={props.users}
+        updatesFollowed = {updatesFollowed}
+        loadClickValue = {props.loadClickValue}
+        />
+      </>
 }
+
 let mapStateToProps = (state) =>{
   return{
     users: getUsersSelect(state),

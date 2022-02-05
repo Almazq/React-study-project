@@ -1,43 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-class Status extends React.Component{
-  state = {
-    editMode:false,
-    status:this.props.data.profileStatus,
+const Status = (props)=>{
+  let [editMode, SetEditMode] = useState(false)
+  let [status, SetStatus] = useState(props.data.profileStatus)
+  useEffect(()=>{
+    SetStatus(props.data.profileStatus)
+  },[props.data.profileStatus])
+  const activeChange =()=>{
+    SetEditMode(true);
   }
-  componentDidUpdate(prevProps,prevState){
-    if(prevState.status !== this.props.data.profileStatus){
-      this.setState({
-        status:this.props.data.profileStatus
-      })
-    }
+  const deactiveChange =()=>{
+    SetEditMode(false);
+    props.data.newSetProfileStatus(status);
   }
-  activeChange = ()=>{
-    this.setState({
-      editMode:true
-    })
-  }
-  deactiveChange = ()=>{
-    this.setState({
-      editMode:false
-    })
-    this.props.data.newSetProfileStatus(this.state.status);
-  }
-  onChangeStatus = (e)=>{
+  const onChangeStatus = (e)=>{
     let text = e.target.value;
-    this.props.data.updateNewStatus(text);
+    SetStatus(text);
   }
-  render(){
+
     return(
       <div>
-        {!this.state.editMode
-          ?<div onDoubleClick={this.activeChange}><p>Status:{this.state.status === null ? "no status" :this.state.status}</p></div>
-          :<div><input onBlur={this.deactiveChange}type="text" value={this.state.status} onChange={this.onChangeStatus}/></div>
+        {!editMode
+          ?<div onDoubleClick={activeChange}><p>Status:{status === null ? "no status" : status}</p></div>
+          :<div><input type="text" onBlur={deactiveChange} value={status} onChange={onChangeStatus} /></div>
         }
 
 
         </div>
     );
-  }
 }
 export default Status;

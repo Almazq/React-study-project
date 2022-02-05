@@ -5,20 +5,19 @@ import Dialogs from "./Dialogs";
 import {withAuthNagivate} from ".././HOC/authNavigate";
 import {connect} from "react-redux"
 import {compose } from 'redux'
+import {listnameSelect,avaSelect,massegeValueSelect,massegeSelect} from ".././redux/select";
+
 
 let mapStateToProps = (state) =>{
 	return{
-		listname: state.Dialogjsx.listname,
-		ava: state.Dialogjsx.ava,
-		massegeValue: state.Dialogjsx.massegeValue,
-		massege: state.Dialogjsx.massege,
+		listname: listnameSelect(state),
+		ava: avaSelect(state),
+		massegeValue: massegeValueSelect(state),
+		massege: massegeSelect(state),
 	}
 }
 let mapDispatchToProps = (dispatch) =>{
 	return{
-		// upDateNewMassegeActionCreat:(text)=> {
-		// 	dispatch(dialogActionCreat.upDateNewMassegeActionCreat(text))
-		// },
 		addMassegeActionCreat: (newMassege)=>{
 			dispatch(dialogActionCreat.addMassegeActionCreat(newMassege));
 		}
