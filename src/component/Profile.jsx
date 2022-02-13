@@ -11,8 +11,6 @@ let Profile = (props) => {
       props.addPostActionCreat(values.post);
     }
   })
-  let postMap =
-    props.posts.map(post => <div className="post" key = {post.id}>{post.posts}</div>);
 
   return(
     <form onSubmit={formik.handleSubmit}>
@@ -25,16 +23,14 @@ let Profile = (props) => {
             <p className="p">Date of Birth: 2021</p>
             <p>City: Seoul</p>
             <p>Homosapien: true</p>
-            <Status data={props}/>
+            <Status profileStatus={props.profileStatus} newSetProfileStatus={props.newSetProfileStatus}/>
           </div>
           <div className="content-conteiner__comment">
             <h3>Comment</h3>
             <input type="text" className="input__comment" name="post" value={formik.values.post} onChange={formik.handleChange}/>
             <button type="submit">Add</button>
           </div>
-          <div className="posts">
-            {postMap}
-          </div>
+          <ProfilePosts posts={props.posts} />
         </div>
         <status />
 
@@ -42,4 +38,13 @@ let Profile = (props) => {
     </form>
   );
 }
+const ProfilePosts = React.memo(props =>{
+  let postMap =
+    props.posts.map(post => <div className="post" key = {post.id}>{post.posts}</div>);
+  return(
+    <div className="posts">
+      {postMap}
+    </div>
+  )
+})
 export default Profile;

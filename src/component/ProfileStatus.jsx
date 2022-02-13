@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 
-const Status = (props)=>{
-  let [editMode, SetEditMode] = useState(false)
-  let [status, SetStatus] = useState(props.data.profileStatus)
+const Status = React.memo( props =>{
+  console.log("status" )
+  console.log(props)
+  let [editMode, SetEditMode] = useState(false);
+  let [status, SetStatus] = useState(props.profileStatus);
   useEffect(()=>{
-    SetStatus(props.data.profileStatus)
-  },[props.data.profileStatus])
-  const activeChange =()=>{
+    SetStatus(props.profileStatus);
+  },[props.profileStatus])
+
+  const activeChange = ()=>{
     SetEditMode(true);
   }
-  const deactiveChange =()=>{
+  const deactiveChange = ()=>{
     SetEditMode(false);
-    props.data.newSetProfileStatus(status);
+    props.newSetProfileStatus(status);
   }
   const onChangeStatus = (e)=>{
-    let text = e.target.value;
-    SetStatus(text);
+    SetStatus(e.target.value);
   }
 
     return(
@@ -24,9 +26,7 @@ const Status = (props)=>{
           ?<div onDoubleClick={activeChange}><p>Status:{status === null ? "no status" : status}</p></div>
           :<div><input type="text" onBlur={deactiveChange} value={status} onChange={onChangeStatus} /></div>
         }
-
-
         </div>
     );
-}
+})
 export default Status;
