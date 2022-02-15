@@ -44,34 +44,32 @@ export const authAC = {
 }
 
 export const authMeThunkCreator = ()=>{
-  return (dispatch)=>{
-    return authMe().then(data =>{
-      if(data.resultCode === 0){
-        let {id,login,email} = data.data;
+  return async (dispatch)=>{
+    let response = await authMe();
+      if(response.resultCode === 0){
+        let {id,login,email} = response.data;
         dispatch(authAC.AuthMeAction(id,login,email,true));
       }
-    })
   }
 }
+
 export const authLoginThunkCreator = (email,password,rememberMe)=>{
-  return (dispatch)=>{
-    authLogin(email,password,rememberMe).then(response =>{
-      if(response.resultCode === 0){
-        dispatch(authMeThunkCreator());
-        dispatch(authAC.errLogin(true))
-      }else{
-        dispatch(authAC.errLogin(false));
-      }
-    })
+  return  async(dispatch)=>{
+    let response = await authLogin(email,password,rememberMe);
+    if(response.resultCode === 0){
+      dispatch(authMeThunkCreator());
+      dispatch(authAC.errLogin(true))
+    }else{
+      dispatch(authAC.errLogin(false));
+    }
   }
 }
 export const authLogoutThunkCreator = ()=>{
-  return (dispatch)=>{
-    authLogout().then(response =>{
-      if(response.resultCode === 0){
-        dispatch(authAC.AuthMeAction(null,null,null,false));
-      }
-    })
+  return async(dispatch)=>{
+    let response = await authLogout();
+    if(response.resultCode === 0){
+      dispatch(authAC.AuthMeAction(null,null,null,false));
+    }
   }
 }
 

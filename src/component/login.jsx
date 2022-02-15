@@ -31,7 +31,9 @@ const LoginForm =(props)=>{
         </form>
     );
 }
+
 const Login = (props)=>{
+  console.log(props)
   const getInfoSubmit = (values)=>{
     props.authLoginThunkCreator(values.email,values.password)
   }

@@ -39,7 +39,7 @@ export const authLogin = (email,password)=>{
 	return instance.post(`/auth/login`,{
 		email:email,
 		password:password,
-		rememberMe: false,
+		rememberMe: true,
 	}).then(response =>{return response.data})
 }
 export const authLogout = ()=>{

@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
 const Status = React.memo( props =>{
-  console.log("status" )
-  console.log(props)
   let [editMode, SetEditMode] = useState(false);
   let [status, SetStatus] = useState(props.profileStatus);
   useEffect(()=>{

@@ -50,6 +50,11 @@ const profileReducer = (state = initalState , action) =>{
             ...state,
             status:action.newStatus
           }
+        case "DELETE-POST":
+            return{
+              ...state,
+              posts: state.posts.filter(post => post.id !== action.postId)
+            }
     default:
     	return state;
   }
@@ -59,6 +64,12 @@ export const profileActionCreat = {
       return {
       type:"ADD-POST",
       newPost:newPost
+    }
+  },
+  deletePostActionCreat(postId){
+      return {
+      type:"DELETE-POST",
+      postId:postId
     }
   },
   setProfileFullname(name){
@@ -88,23 +99,20 @@ export const profileActionCreat = {
 }
 
 export const profileThunkCreator = ()=>{
-  return (dispatch)=>{
+  return async (dispatch)=>{
+    let response = await authMe();
+    let responseProfileinfo = await profileInfo(response.data.id);
+    
+    if(response.resultCode === 0){
+      profileStatus(response.data.id).then(responseStatus =>{
+      dispatch(profileActionCreat.setProfileStatus(responseStatus))
+    })
 
-  authMe().then(data =>{
-    if(data.resultCode === 0){
-
-      profileStatus(data.data.id).then(responseStatus =>{
-        dispatch(profileActionCreat.setProfileStatus(responseStatus))
-      })
-
-      profileInfo(data.data.id).then(datainfo =>{
-        dispatch(profileActionCreat.setProfileFullname(datainfo.fullName));
-        if (datainfo.photos.small === null) {
-          dispatch(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
-        }
-      })
+    dispatch(profileActionCreat.setProfileFullname(responseProfileinfo.fullName));
+    if (responseProfileinfo.photos.small === null) {
+      dispatch(profileActionCreat.setProfilePhotos("https://aniyuki.com/wp-content/uploads/2021/06/aniyuki-funny-anime-avatars-72.jpg"))
     }
-  })
+    }
 }}
 
 export const newSetProfileStatus = (status)=>{

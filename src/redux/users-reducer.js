@@ -81,10 +81,9 @@ export const usersAC = {
 }
 
 export const getUsersThunkCreator = (page,count)=>{
-  return (dispatch)=>{
-    getUsers(page, count).then(data =>{
-      dispatch(usersAC.SetUsersAC([...data.items]));
-    })
+  return async (dispatch)=>{
+    let data = await getUsers(page, count)
+    dispatch(usersAC.SetUsersAC([...data.items]));
   }
 }
 export const nextGetUsersThunkCreator = (page,count)=>{
@@ -94,38 +93,35 @@ export const nextGetUsersThunkCreator = (page,count)=>{
   }
 }
 export const addGetUsersThunkCreator = (page,count)=>{
-  return (dispatch)=>{
+  return async (dispatch)=>{
+    let data = await getUsers(page, count);
     if(count === 100){
       dispatch(usersAC.textAddGetUsersAC());
       dispatch(nextGetUsersThunkCreator(page,count));
     }else{
       dispatch(usersAC.isLoading(true));
       dispatch(usersAC.addGetUsersAC(count));
-      getUsers(page, count).then(data =>{
-        dispatch(usersAC.isLoading(false))
-        dispatch(usersAC.SetUsersAC([...data.items]));
-      })
+      dispatch(usersAC.isLoading(false))
+      dispatch(usersAC.SetUsersAC([...data.items]));
     }
   }
+}
+//follow || Unfollow
+
+const followUnfollowFlow = async (dispatch,user,actionCreat,isFollowedApi)=>{
+  dispatch(usersAC.loadClick(true,user.id))
+  let data = await followed(user.id, isFollowedApi);
+  if(data.resultCode === 0){
+    dispatch(actionCreat(user.id))
+  }
+  dispatch(usersAC.loadClick(false,user.id));
 }
 export const updatesFollowThunkCreator = (isFollowed,user)=>{
   return (dispatch)=>{
      if (isFollowed === "Follow"){
-      dispatch(usersAC.loadClick(true,user.id))
-      followed(user.id, "follow").then(data=>{
-          if(data.resultCode === 0){
-            dispatch(usersAC.FollowAC(user.id))
-          }
-          dispatch(usersAC.loadClick(false,user.id));
-      })
+       followUnfollowFlow(dispatch,user,usersAC.FollowAC,"follow")
       }else{
-        dispatch(usersAC.loadClick(true,user.id))
-        followed(user.id, "unfollow").then(data=>{
-            if(data.resultCode === 0){
-              dispatch(usersAC.UnFollowAC(user.id))
-            }
-            dispatch(usersAC.loadClick(false,user.id));
-        })
+        followUnfollowFlow(dispatch,user,usersAC.UnFollowAC,"unfollow")
       }
     }
 }
